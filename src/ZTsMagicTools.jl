@@ -1,6 +1,6 @@
 module ZTsMagicTools
 
-export axshpy!, PLv, QLv
+export axshpy!, PLv, QLv, fx2y!, fxy2z!
 
 function axshpy!(a, x, y; biasx = 0)
     n = length(x)
@@ -30,5 +30,26 @@ end
     end
     return Q
 end
+
+function fx2y!(f, x, y)                     #  y = f(x)
+    if size(x)==size(y)
+        @inbounds for i = 1:length(x)
+            y[i] = f(x[i])
+        end
+    else
+        throw(ErrorException("Dimension not match"))
+    end
+end
+
+function fxy2z!(f, x, y, z)                 # z = f(x,y)
+    if size(x)==size(y)==size(z)
+        @inbounds for i = 1:length(x)
+            z[i] = f(x[i],y[i])
+        end
+    else
+        throw(ErrorException("Dimension not match"))
+    end
+end
+
 
 end # module
