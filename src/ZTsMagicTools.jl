@@ -5,11 +5,13 @@ export axshpy!, PLv, QLv, fx2y!, fxy2z!
 function axshpy!(a, x, y; biasx = 0)
     n = length(x)
     b = mod(biasx,n)
-    @inbounds @simd for i=1:n-b
-        y[i+b] += a*x[i]
-    end
-    @inbounds @simd for i=1:b
-        y[i] += a*x[n-b+i]
+    @inbounds begin
+        for i=1:n-b
+            y[i+b] += a*x[i]
+        end
+        for i=1:b
+            y[i] += a*x[n-b+i]
+        end
     end
 end
 
