@@ -15,7 +15,7 @@ function axshpy!(a, x, y; biasx = 0)
     end
 end
 
-function PLv(x::T, l::Int) where T
+function PLv(l::Int, x::T) where T
     P = zeros(T,l+1)
     P[1]=1. ; P[2]=x
     for n=3:l+1
@@ -24,7 +24,7 @@ function PLv(x::T, l::Int) where T
     return P
 end
 
-function QLv(x::T, l::Int) where T
+function QLv(l::Int, x::T) where T
     Q = zeros(T,l+1)
     Q[1]=log((1+x)/(1-x))/2; Q[2]=x*Q[1]-1
     for n=3:l+1
